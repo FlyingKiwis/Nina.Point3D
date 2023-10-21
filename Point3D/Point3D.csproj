@@ -46,6 +46,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Telescope\AlignModeExtension.cs" />
+    <Compile Include="Telescope\TelescopeModelVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -278,6 +280,12 @@
     <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, PublicKeyToken=431cba815f6a8b5b, processorArchitecture=MSIL">
       <HintPath>..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GS.Point3D\GS.Point3D.csproj">
+      <Project>{f84855aa-953c-4516-b7fd-944f17b7f4cb}</Project>
+      <Name>GS.Point3D</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
