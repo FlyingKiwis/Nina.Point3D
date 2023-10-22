@@ -13,19 +13,16 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace GS.Point3D.Converters
+namespace NINA.Point3D.Controls
 {
-    public class NotEmptyValidationRule : ValidationRule
+    /// <summary>
+    /// Interaction logic for HelixViewport3D.xaml
+    /// </summary>
+    public partial class HelixViewport3D
     {
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        public HelixViewport3D()
         {
-            return string.IsNullOrWhiteSpace((value ?? "").ToString())
-                ? new ValidationResult(false, Application.Current.Resources["cvtRequired"].ToString())
-                : ValidationResult.ValidResult;
+            InitializeComponent();
         }
     }
 }

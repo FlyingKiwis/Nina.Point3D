@@ -14,18 +14,17 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 using System;
-using GS.Point3D.Helpers;
-using GS.Point3D.ViewModels;
+using NINA.Core.Enum;
+using NINA.Point3D.Helpers;
 
-namespace GS.Point3D.Classes
+namespace NINA.Point3D.Classes
 {
     public static class Axes
     {
-        private static readonly MainWindowVM _mainWindowVM;
 
         static Axes()
         {
-             _mainWindowVM = MainWindowVM._mainWindowVM;
+
         }
 
         /// <summary>
@@ -33,32 +32,29 @@ namespace GS.Point3D.Classes
         /// </summary>
         /// <param name="raDec"></param>
         /// <returns></returns>
-        public static double[] RaDecToAxesXY(AlignMode mode, double[] raDec)
+        public static double[] RaDecToAxesXY(AlignmentMode mode, double rightAscension, double declination, double siderealTime, bool southernHemisphere, PierSide sideOfPier)
         {
-            var axes = new[] {raDec[0], raDec[1]};
+            var axes = new[] { rightAscension, declination};
             switch (mode)
             {
-                case AlignMode.algAltAz:
+                case AlignmentMode.AltAz:
                     //axes = Range.RangeAzAlt(axes);
                     //axes = Coordinate.RaDec2AltAz(axes[0], axes[1], SkyServer.SiderealTime, SkySettings.Latitude);
                     return axes;
-                case AlignMode.algGermanPolar:
-                    axes[0] = (_mainWindowVM.SideRealtime - axes[0]) * 15.0;
-                    if (_mainWindowVM.SouthernHemisphere){axes[1] = -axes[1];}
-
-                    _mainWindowVM.Axis2 = axes[0];
-                    _mainWindowVM.Axis3 = axes[1];
+                case AlignmentMode.GermanPolar:
+                    axes[0] = (siderealTime - rightAscension) * 15.0;
+                    if (southernHemisphere)
+                        declination = -declination;
+                    axes[1] = declination;
 
                     var axes3 = GetAltAxisPosition(axes);
-                    _mainWindowVM.Axis4 = axes3[0];
-                    _mainWindowVM.Axis5 = axes3[1];
 
-                    switch (_mainWindowVM.PierSide)
+                    switch (sideOfPier)
                     {
-                        case SOP.pierUnknown:
+                        case PierSide.pierUnknown:
                             break;
-                        case SOP.pierEast:
-                            if (_mainWindowVM.SouthernHemisphere)
+                        case PierSide.pierEast:
+                            if (southernHemisphere)
                             {
                                 // southern
                                 axes[0] = axes[0];
@@ -71,8 +67,8 @@ namespace GS.Point3D.Classes
                             }
 
                             break;
-                        case SOP.pierWest:
-                            if (_mainWindowVM.SouthernHemisphere)
+                        case PierSide.pierWest:
+                            if (southernHemisphere)
                             {
                                 // southern
                                 axes[0] = axes3[0];
@@ -90,12 +86,10 @@ namespace GS.Point3D.Classes
                     }
 
                     return axes;
-                case AlignMode.algPolar:
+                case AlignmentMode.Polar:
                     //axes[0] = (SkyServer.SiderealTime - axes[0]) * 15.0;
                     //axes[1] = (SkyServer.SouthernHemisphere) ? -axes[1] : axes[1];
                     break;
-                case AlignMode.algUnknown:
-                    throw new ArgumentOutOfRangeException();
                 default:
                     throw new ArgumentOutOfRangeException();
             }

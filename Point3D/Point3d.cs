@@ -28,9 +28,6 @@ namespace NINA.Point3d {
     /// </summary>
     [Export(typeof(IPluginManifest))]
     public class Point3d : PluginBase, INotifyPropertyChanged {
-        private readonly IPluginOptionsAccessor pluginSettings;
-        private readonly IProfileService profileService;
-        private readonly IImageSaveMediator imageSaveMediator;
 
         [ImportingConstructor]
         public Point3d(IProfileService profileService, IOptionsVM options, IImageSaveMediator imageSaveMediator) {
@@ -40,25 +37,43 @@ namespace NINA.Point3d {
                 CoreUtil.SaveSettings(Settings.Default);
             }
 
-            // This helper class can be used to store plugin settings that are dependent on the current profile
-            this.pluginSettings = new PluginOptionsAccessor(profileService, Guid.Parse(this.Identifier));
-            this.profileService = profileService;
-            // React on a changed profile
-            profileService.ProfileChanged += ProfileService_ProfileChanged;
-
-            // Hook into image saving for adding FITS keywords or image file patterns
-            this.imageSaveMediator = imageSaveMediator;
         }
 
         public override Task Teardown() {
-            // Make sure to unregister an event when the object is no longer in use. Otherwise garbage collection will be prevented.
-            profileService.ProfileChanged -= ProfileService_ProfileChanged;
-
             return base.Teardown();
         }
 
-        private void ProfileService_ProfileChanged(object sender, EventArgs e) {
+        public double XOffset {
+            get {
+                return Settings.Default.XOffset;
+            }
+            set {
+                Settings.Default.XOffset = value;
+                CoreUtil.SaveSettings(Settings.Default);
+                RaisePropertyChanged();
+            }
+        }
 
+        public double YOffset {
+            get {
+                return Settings.Default.YOffset;
+            }
+            set {
+                Settings.Default.YOffset = value;
+                CoreUtil.SaveSettings(Settings.Default);
+                RaisePropertyChanged();
+            }
+        }
+
+        public double ZOffset {
+            get {
+                return Settings.Default.ZOffset;
+            }
+            set {
+                Settings.Default.ZOffset = value;
+                CoreUtil.SaveSettings(Settings.Default);
+                RaisePropertyChanged();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

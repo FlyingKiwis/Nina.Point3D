@@ -13,29 +13,19 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-using System;
-using System.Collections.Generic;
-
-namespace GS.Point3D.Helpers
+namespace NINA.Point3D.Helpers
 {
-    public static class Numbers
+    #region Enums
+
+    public enum Model3DType
     {
-
-        public static IEnumerable<double> InclusiveRange(double start, double end, double step = .1, int round = 1)
-        {
-            while (start <= end)
-            {
-                yield return start;
-                start += step;
-                start = Math.Round(start, round);
-            }
-        }
-
-        public static double Ra2Ha12(double rightAscension, double localSiderealTime)
-        {
-            var a = localSiderealTime - rightAscension;
-            var Ra2Ha = Range.Range12(a);
-            return Ra2Ha;
-        }
+        Default = 0,
+        Reflector = 1,
+        Refractor = 2,
+        SchmidtCassegrain = 3,
+        RitcheyChretien = 4,
+        RitcheyChretienTruss = 5
     }
+
+    #endregion
 }

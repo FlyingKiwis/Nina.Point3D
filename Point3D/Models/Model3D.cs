@@ -15,9 +15,9 @@
  */
 using System;
 using System.Reflection;
-using GS.Point3D.Helpers;
+using NINA.Point3D.Helpers;
 
-namespace GS.Point3D.Classes
+namespace NINA.Point3D.Classes
 {
     public static class Model3D
     {

@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-namespace GS.Point3D.Helpers
+namespace NINA.Point3D.Helpers
 {
     /// <summary>
     /// Forces parameters to be within a certain range 

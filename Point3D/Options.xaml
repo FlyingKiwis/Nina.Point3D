@@ -8,12 +8,16 @@
     <DataTemplate x:Key="Point3D_Options">
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Default Notification Message" />
-                <TextBox MinWidth="50" Text="{Binding DefaultNotificationMessage}" />
+                <Label Content="X Offset"/>
+                <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding XOffset}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Profile Specific Notification Message" />
-                <TextBox MinWidth="50" Text="{Binding ProfileSpecificNotificationMessage}" />
+                <Label Content="Y Offset"/>
+                <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding YOffset}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Z Offset"/>
+                <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding ZOffset}"/>
             </StackPanel>
         </StackPanel>
     </DataTemplate>

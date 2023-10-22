@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows;
 
-namespace NINA.Point3d {
+namespace NINA.Point3d.TelescopeModel {
 
     [Export(typeof(ResourceDictionary))]
-    partial class Options : ResourceDictionary {
-
-        public Options() {
+    public partial class DataTemplate : ResourceDictionary {
+        public DataTemplate() {
             InitializeComponent();
         }
     }
