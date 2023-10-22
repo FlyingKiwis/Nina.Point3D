@@ -17,6 +17,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Settings = NINA.Point3d.Properties.Settings;
+using System.Drawing;
+using NINA.Point3D.Helpers;
 
 namespace NINA.Point3d {
     /// <summary>
@@ -75,6 +77,45 @@ namespace NINA.Point3d {
                 RaisePropertyChanged();
             }
         }
+
+        public Color ModelColor {
+            get {
+                return Settings.Default.ModelColor;
+            }
+            set {
+                Settings.Default.ModelColor = value;
+                CoreUtil.SaveSettings(Settings.Default);
+                RaisePropertyChanged();
+            }
+        }
+
+        public Model3DType OTAStyle {
+            get {
+                return Settings.Default.OTAStyle;
+            }
+            set {
+                Settings.Default.OTAStyle = value;
+                CoreUtil.SaveSettings(Settings.Default);
+                RaisePropertyChanged();
+            }
+        }
+
+        public static Dictionary<String, Color> ModelColors { get; } = new Dictionary<String, Color> {
+            { "Red", Color.Red },
+            { "Blue", Color.Blue },
+            { "Green", Color.Green },
+            { "Black", Color.Black },
+            { "White", Color.White }
+        };
+
+        public static Dictionary<String, Model3DType> OTAStyles { get; } = new Dictionary<String, Model3DType> {
+            { "Default", Model3DType.Default },
+            { "SCT", Model3DType.SchmidtCassegrain },
+            { "RC", Model3DType.RitcheyChretien },
+            { "RC Truss", Model3DType.RitcheyChretienTruss },
+            { "Reflector", Model3DType.Reflector },
+            { "Refractor", Model3DType.Refractor },
+        };
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null) {

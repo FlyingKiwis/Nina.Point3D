@@ -7,15 +7,25 @@
     <!--  Furthermore the Resource Dictionary has to be exported via code behind export attributes  -->
     <DataTemplate x:Key="Point3D_Options">
         <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="X Offset"/>
+            <Label Content="Model display options" Margin="0,5,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Label Content="OTA Style"/>
+                <ComboBox Margin="5,0,0,0" ItemsSource="{Binding OTAStyles}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedValue="{Binding OTAStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Label Content="Model Color"/>
+                <ComboBox Margin="5,0,0,0" ItemsSource="{Binding ModelColors}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedValue="{Binding ModelColor}"/>
+            </StackPanel>
+            <Label Margin="0,5,0,0" Content="Below are offsets for the model in degrees, ony change them if the model does not match how your telescope is pointing.  Typically they should be changed in multiples of 90 and can be positive or negative."/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Label Content="X Offset (RA)"/>
                 <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding XOffset}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Y Offset"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Label Content="Y Offset (Dec)"/>
                 <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding YOffset}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label Content="Z Offset"/>
                 <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding ZOffset}"/>
             </StackPanel>

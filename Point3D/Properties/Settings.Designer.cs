@@ -70,5 +70,29 @@ namespace NINA.Point3d.Properties {
                 this["ZOffset"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        public global::NINA.Point3D.Helpers.Model3DType OTAStyle {
+            get {
+                return ((global::NINA.Point3D.Helpers.Model3DType)(this["OTAStyle"]));
+            }
+            set {
+                this["OTAStyle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color ModelColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ModelColor"]));
+            }
+            set {
+                this["ModelColor"] = value;
+            }
+        }
     }
 }

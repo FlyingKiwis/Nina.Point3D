@@ -4,7 +4,9 @@ using NINA.Equipment.Equipment.MyTelescope;
 using NINA.Equipment.Interfaces.Mediator;
 using NINA.Equipment.Interfaces.ViewModel;
 using NINA.Point3d.Properties;
+using NINA.Point3d.Util;
 using NINA.Point3D.Classes;
+using NINA.Point3D.Helpers;
 using NINA.Profile.Interfaces;
 using NINA.WPF.Base.ViewModel;
 using System;
@@ -22,35 +24,26 @@ namespace NINA.Point3d.TelescopeModel {
 
         private bool? _isSouthernHem = null;
 
+        private Color _modelColor;
+        private Model3DType _otaType;
+
         [ImportingConstructor]
         public TelescopeModelVM(ITelescopeMediator telescopeMediator, IProfileService profileService) : base(profileService) {
             _telescopeMediator = telescopeMediator;
             _telescopeMediator.RegisterConsumer(this);
             Title = "Telescope Model";
 
-            Application.Current.Dispatcher.Invoke(() => {
-                var import = new ModelImporter();
-                var model = import.Load(Model3D.GetModelFile(Point3D.Helpers.Model3DType.Default));
+            Settings.Default.PropertyChanged += Settings_PropertyChanged;
+            LoadModel(true);
 
-                var converter = new BrushConverter();
-                var accentbrush = (Brush)converter.ConvertFromString("Red");
+            LookDirection = new Vector3D(43, 2157, -747);
+            UpDirection = new Vector3D(0, 0.5, 0.85);
+            Position = new System.Windows.Media.Media3D.Point3D(-135, -2324, 956);
+        }
 
-                var materialota = MaterialHelper.CreateMaterial(accentbrush);
-                if (model.Children[0] is GeometryModel3D ota) ota.Material = materialota;
-
-                //color weights
-                var materialweights = MaterialHelper.CreateMaterial(new SolidColorBrush(Color.FromRgb(64, 64, 64)));
-                if (model.Children[1] is GeometryModel3D weights) { weights.Material = materialweights; }
-                //color bar
-                var materialbar = MaterialHelper.CreateMaterial(Brushes.Gainsboro);
-                if (model.Children[2] is GeometryModel3D bar) { bar.Material = materialbar; }
-
-                LookDirection = new Vector3D(43, 2157, -747);
-                UpDirection = new Vector3D(0, 0.5, 0.85);
-                Position = new System.Windows.Media.Media3D.Point3D(-135, -2324, 956);
-                Model = model;
-                RaisePropertyChanged(nameof(Model));
-            });
+        private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            LoadModel();
         }
 
         public double XAxisOffset { get; private set; } = 90;
@@ -60,6 +53,7 @@ namespace NINA.Point3d.TelescopeModel {
         public string Declination { get; private set; } = "None yet";
         public bool ModelOn { get; private set; } = false;
         public Material Compass { get; private set; }
+        public bool CameraVis { get; private set; } = false;
         public System.Windows.Media.Media3D.Model3D Model { get; private set; }
 
         private Vector3D _upDirection;
@@ -93,20 +87,22 @@ namespace NINA.Point3d.TelescopeModel {
                 RaisePropertyChanged(nameof(Position));
             }
             }
-        public bool CameraVis { get; private set; } = true;
 
         public void Dispose() {
             _telescopeMediator.RemoveConsumer(this);
+            Settings.Default.PropertyChanged -= Settings_PropertyChanged;
         }
 
         public void UpdateDeviceInfo(TelescopeInfo deviceInfo) {
             Logger.Debug(string.Empty);
 
-            if(!ModelOn) {
+            if (!ModelOn) {
                 ModelOn = true;
                 RaisePropertyChanged(nameof(ModelOn));
             }
 
+            LoadModel();
+            
             var ra = deviceInfo.RightAscension;
             var dec = deviceInfo.Declination;
             var alignMode = deviceInfo.AlignmentMode;
@@ -139,6 +135,38 @@ namespace NINA.Point3d.TelescopeModel {
             RaisePropertyChanged(nameof(Declination));
         }
 
+        private void LoadModel(bool force = false) {
 
+            Application.Current.Dispatcher.Invoke(() => {
+
+                if (!force) {
+                    if (Settings.Default.OTAStyle == _otaType && Settings.Default.ModelColor.Equals(_modelColor))
+                        return;
+                }
+
+                _modelColor = Settings.Default.ModelColor.ToMediaColor();
+                _otaType = Settings.Default.OTAStyle;
+
+                Logger.Debug($"Color={_modelColor} Style={_otaType.ToString()}");
+
+                var import = new ModelImporter();
+                var model = import.Load(Model3D.GetModelFile(_otaType));
+
+                var accentbrush = new SolidColorBrush(_modelColor);
+
+                var materialota = MaterialHelper.CreateMaterial(accentbrush);
+                if (model.Children[0] is GeometryModel3D ota) ota.Material = materialota;
+
+                //color weights
+                var materialweights = MaterialHelper.CreateMaterial(new SolidColorBrush(Color.FromRgb(64, 64, 64)));
+                if (model.Children[1] is GeometryModel3D weights) { weights.Material = materialweights; }
+                //color bar
+                var materialbar = MaterialHelper.CreateMaterial(Brushes.Gainsboro);
+                if (model.Children[2] is GeometryModel3D bar) { bar.Material = materialbar; }
+
+                Model = model;
+                RaisePropertyChanged(nameof(Model));
+            });
+        }
     }
 }
