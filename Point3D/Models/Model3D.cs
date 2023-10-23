@@ -16,12 +16,13 @@
 using System;
 using System.Reflection;
 using NINA.Point3D.Helpers;
+using System.IO;
 
 namespace NINA.Point3D.Classes
 {
     public static class Model3D
     {
-        private static readonly string _directoryPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\3DModels\\";
+        private static readonly string _directoryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase), "Resources");
         public static string GetModelFile(Model3DType modelType)
         {
             string gpModel;
@@ -48,7 +49,7 @@ namespace NINA.Point3D.Classes
                 default:
                     throw new ArgumentOutOfRangeException(nameof(modelType), modelType, null);
             }
-            var filePath = System.IO.Path.Combine(_directoryPath ?? throw new InvalidOperationException(), gpModel);
+            var filePath = Path.Combine(_directoryPath ?? throw new InvalidOperationException(), gpModel);
             var file = new Uri(filePath).LocalPath;
             return file;
         }

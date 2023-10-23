@@ -60,10 +60,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Default.obj" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Default.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Reflector.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Refractor.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\RitcheyChretien.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\RitcheyChretienTruss.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\SchmidtCassegrain.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -323,7 +342,14 @@
       <HintPath>..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\CompassN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\CompassS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
@@ -331,13 +357,21 @@ if not exist "%25localappdata%25\NINA\Plugins" (
   echo "Creating $(PlatformName) Plugins folder"
   mkdir "%25localappdata%25\NINA\Plugins"
 )
+
 if not exist "%25localappdata%25\NINA\Plugin\$(TargetName)" (
   echo "Creating $(PlatformName) Plugins $(TargetName) folder"
   mkdir "%25localappdata%25\NINA\Plugins\$(TargetName)"
 )
 
+if not exist "%25localappdata%25\NINA\Plugin\$(TargetName)\Resources" (
+  echo "Creating $(PlatformName) Plugins $(TargetName)\Resources folder"
+  mkdir "%25localappdata%25\NINA\Plugins\$(TargetName)\Resources"
+)
+
 echo "Copying $(PlatformName) $(TargetFileName)"
 xcopy "$(TargetPath)" "%25localappdata%25\NINA\Plugins\$(TargetName)" /h/i/c/k/e/r/y
+xcopy "$(TargetDir)\Resources" "%25localappdata%25\NINA\Plugins\$(TargetName)\Resources" /s/h/i/c/k/e/r/y
+xcopy "$(TargetDir)\HelixToolkit.Wpf.dll" "%25localappdata%25\NINA\Plugins\$(TargetName)" /h/i/c/k/e/r/y
 		</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
