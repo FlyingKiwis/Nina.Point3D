@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 
 // [MANDATORY] The assembly versioning
 //Should be incremented for each new release build of a plugin
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
 
 // [MANDATORY] The name of your plugin
 [assembly: AssemblyTitle("Point3D")]
@@ -27,16 +27,16 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("MinimumApplicationVersion", "2.0.0.9001")]
 
 // The license your plugin code is using
-[assembly: AssemblyMetadata("License", "MPL-2.0")]
+[assembly: AssemblyMetadata("License", "GPL-3.0")]
 // The url to the license
-[assembly: AssemblyMetadata("LicenseURL", "https://www.mozilla.org/en-US/MPL/2.0/")]
+[assembly: AssemblyMetadata("LicenseURL", "https://www.gnu.org/licenses/gpl-3.0.en.html")]
 // The repository where your pluggin is hosted
-[assembly: AssemblyMetadata("Repository", "TBA")]
+[assembly: AssemblyMetadata("Repository", "https://github.com/FlyingKiwis/Nina.Point3D")]
 
 // The following attributes are optional for the official manifest meta data
 
 //[Optional] Your plugin homepage URL - omit if not applicaple
-[assembly: AssemblyMetadata("Homepage", "TBA")]
+[assembly: AssemblyMetadata("Homepage", "https://github.com/FlyingKiwis/Nina.Point3D")]
 
 //[Optional] Common tags that quickly describe your plugin
 [assembly: AssemblyMetadata("Tags", "")]
@@ -51,7 +51,26 @@ using System.Runtime.InteropServices;
 //[Optional] An additional url to an example example screenshot of your plugin in action
 [assembly: AssemblyMetadata("AltScreenshotURL", "")]
 //[Optional] An in-depth description of your plugin
-[assembly: AssemblyMetadata("LongDescription", @"TBA")]
+[assembly: AssemblyMetadata("LongDescription", @"!!! Very early preview/beta version.  Using during imaging that you care about is not reccomended. !!!
+
+# About
+
+This plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.
+
+# Legal
+
+- This plugin is distributed under the GPL v3 license.
+-- [License](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/LICENSE)
+- It is primarily a port of Green Swamp Server's Point3D © 2021 Rob Morgan released under GPL v3
+-- [Website](https://greenswamp.org/)
+-- [License](https://github.com/rmorgan001/GS.Point3d/blob/master/LICENSE)
+- Models and images redistributed with permission from Rob Morgan
+
+# Contact
+
+I'm in the [NINA discord](https://discord.gg/rWRbVbw) server as Kiwi🥝
+
+")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

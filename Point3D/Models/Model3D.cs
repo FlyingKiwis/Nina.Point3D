@@ -58,7 +58,7 @@ namespace NINA.Point3D.Classes
             const string compassN = @"CompassN.png";
             const string compassS = @"CompassS.png";
             var compassFile = southernHemisphere ? compassS : compassN;
-            var filePath = System.IO.Path.Combine(_directoryPath ?? throw new InvalidOperationException(), compassFile);
+            var filePath = Path.Combine(_directoryPath ?? throw new InvalidOperationException(), compassFile);
             var file = new Uri(filePath).LocalPath;
             return file;
         }

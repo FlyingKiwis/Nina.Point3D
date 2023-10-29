@@ -43,7 +43,7 @@ namespace NINA.Point3d.TelescopeModel {
             _activeProfile = _profileService.ActiveProfile;
 
             if (_activeProfile != null) {
-                _activeProfile.PropertyChanged += ActiveProfile_PropertyChanged;
+                _activeProfile.PluginSettings.PropertyChanged += ActiveProfile_PropertyChanged;
             }
 
             LoadModel(true);
@@ -52,15 +52,17 @@ namespace NINA.Point3d.TelescopeModel {
         }
 
         private void ActiveProfile_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+            Logger.Debug(string.Empty);
             LoadModel();
         }
 
         private void ProfileService_ProfileChanged(object sender, EventArgs e) 
         {
-            _activeProfile.PropertyChanged -= ActiveProfile_PropertyChanged;
+            Logger.Debug(string.Empty);
+            _activeProfile.PluginSettings.PropertyChanged -= ActiveProfile_PropertyChanged;
             _activeProfile = _profileService.ActiveProfile;
             if (_activeProfile != null) {
-                _activeProfile.PropertyChanged += ActiveProfile_PropertyChanged;
+                _activeProfile.PluginSettings.PropertyChanged += ActiveProfile_PropertyChanged;
             }
             LoadView();
             LoadModel();
@@ -113,7 +115,7 @@ namespace NINA.Point3d.TelescopeModel {
         public void Dispose() {
             _telescopeMediator.RemoveConsumer(this);
             _profileService.ProfileChanged -= ProfileService_ProfileChanged;
-            _activeProfile.PropertyChanged -= ActiveProfile_PropertyChanged;
+            _activeProfile.PluginSettings.PropertyChanged -= ActiveProfile_PropertyChanged;
         }
 
         public void UpdateDeviceInfo(TelescopeInfo deviceInfo) {
@@ -191,6 +193,8 @@ namespace NINA.Point3d.TelescopeModel {
                     var otaStyle = _pluginOptions.GetValueEnum(PluginOptions.OTAStyle, Model3DType.Default);
                     var modelColor = _pluginOptions.GetValueColor(PluginOptions.ModelColor, System.Drawing.Color.Red.ToMediaColor());
 
+                    Logger.Debug($"Requested change: OTA Style={otaStyle} Model Color={modelColor} Current: OTA Style={_otaType} Model color:{_modelColor}");
+
                     if (!force) {
                         if (otaStyle == _otaType && modelColor.Equals(_modelColor))
                             return;
@@ -209,12 +213,14 @@ namespace NINA.Point3d.TelescopeModel {
                     var materialota = MaterialHelper.CreateMaterial(accentbrush);
                     if (model.Children[0] is GeometryModel3D ota) ota.Material = materialota;
 
-                    //color weights
-                    var materialweights = MaterialHelper.CreateMaterial(new SolidColorBrush(Color.FromRgb(64, 64, 64)));
-                    if (model.Children[1] is GeometryModel3D weights) { weights.Material = materialweights; }
-                    //color bar
-                    var materialbar = MaterialHelper.CreateMaterial(Brushes.Gainsboro);
-                    if (model.Children[2] is GeometryModel3D bar) { bar.Material = materialbar; }
+                    if (model.Children.Count >= 3) {
+                        //color weights
+                        var materialweights = MaterialHelper.CreateMaterial(new SolidColorBrush(Color.FromRgb(64, 64, 64)));
+                        if (model.Children[1] is GeometryModel3D weights) { weights.Material = materialweights; }
+                        //color bar
+                        var materialbar = MaterialHelper.CreateMaterial(Brushes.Gainsboro);
+                        if (model.Children[2] is GeometryModel3D bar) { bar.Material = materialbar; }
+                    }
 
                     Model = model;
                     RaisePropertyChanged(nameof(Model));
