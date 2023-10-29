@@ -42,7 +42,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("Tags", "")]
 
 //[Optional] A link that will show a log of all changes in between your plugin's versions
-[assembly: AssemblyMetadata("ChangelogURL", "TBA/CHANGELOG.md")]
+[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/FlyingKiwis/Nina.Point3D/blob/master/CHANGELOG.md")]
 
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
 [assembly: AssemblyMetadata("FeaturedImageURL", "")]
@@ -55,15 +55,15 @@ using System.Runtime.InteropServices;
 
 # About
 
-This plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.
+This plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.  Please see [the readme](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/README.md) for more info.
 
 # Legal
 
 - This plugin is distributed under the GPL v3 license.
--- [License](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/LICENSE)
+    - [License](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/LICENSE)
 - It is primarily a port of Green Swamp Server's Point3D © 2021 Rob Morgan released under GPL v3
--- [Website](https://greenswamp.org/)
--- [License](https://github.com/rmorgan001/GS.Point3d/blob/master/LICENSE)
+    - [Website](https://greenswamp.org/)
+    - [License](https://github.com/rmorgan001/GS.Point3d/blob/master/LICENSE)
 - Models and images redistributed with permission from Rob Morgan
 
 # Contact
