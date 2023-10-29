@@ -4,7 +4,7 @@
 
 ## About
 
-This plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.  Please see [the readme](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/README.md) for more info.
+This plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.
 
 ## Legal
 
