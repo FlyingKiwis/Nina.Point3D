@@ -68,10 +68,84 @@ namespace NINA.Point3d.TelescopeModel {
             LoadModel();
         }
 
+        private double _xAxisOffset = 0;
+        public double XAxisOffset { 
+            get { 
+                return _xAxisOffset;
+            } 
+            set {
+                if (_xAxisOffset != value) {
+                    _xAxisOffset = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
-        public double XAxisOffset { get; private set; } = 0;
-        public double YAxisOffset { get; private set; } = 0;
-        public double ZAxisOffset { get; private set; } = 0;
+        private double _yAxisOffset = 0;
+        public double YAxisOffset {
+            get {
+                return _yAxisOffset;
+            }
+            set {
+                if (_yAxisOffset != value) {
+                    _yAxisOffset = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _zAxisOffset = 0;
+        public double ZAxisOffset {
+            get {
+                return _zAxisOffset;
+            }
+            set {
+                if (_zAxisOffset != value) {
+                    _zAxisOffset = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _xAxis = 0;
+        public double XAxis {
+            get {
+                return _xAxis;
+            }
+            set {
+                if (_xAxis != value) {
+                    _xAxis = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _yAxis = 0;
+        public double YAxis {
+            get {
+                return _yAxis;
+            }
+            set {
+                if (_yAxis != value) {
+                    _yAxis = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _zAxis = 0;
+        public double ZAxis {
+            get {
+                return _zAxis;
+            }
+            set {
+                if (_zAxis != value) {
+                    _zAxis = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public bool ModelOn { get; private set; } = false;
         public Material Compass { get; private set; }
         public bool CameraVis { get; private set; } = false;
@@ -136,6 +210,8 @@ namespace NINA.Point3d.TelescopeModel {
             var siderealTime = deviceInfo.SiderealTime;
             var sideOfPier = deviceInfo.SideOfPier;
 
+            Logger.Trace($"RA={ra} DEC={dec} Lat={latitude}");
+
             if(!_isSouthernHem.HasValue || _isSouthernHem.Value != sourthernHem) {
                 _isSouthernHem = sourthernHem;
                 Compass = MaterialHelper.CreateImageMaterial(Model3D.GetCompassFile(sourthernHem), 100);
@@ -146,13 +222,17 @@ namespace NINA.Point3d.TelescopeModel {
             var raDec = Axes.RaDecToAxesXY(alignMode, ra, dec, siderealTime, sourthernHem, sideOfPier);
             var axes = Model3D.RotateModel(raDec[0], raDec[1], sourthernHem);
 
-            XAxisOffset = axes[0] + _pluginOptions.GetValueDouble(PluginOptions.XOffset, 0);
-            YAxisOffset = axes[1] + _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0);
-            ZAxisOffset = Math.Round(Math.Abs(latitude), 2) + _pluginOptions.GetValueDouble(PluginOptions.ZOffset, 0);
+            XAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.XOffset, 0) + 90;
+            YAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0) - 90;
+            ZAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.ZOffset, 0);
 
-            RaisePropertyChanged(nameof(XAxisOffset));
-            RaisePropertyChanged(nameof(YAxisOffset));
-            RaisePropertyChanged(nameof(ZAxisOffset));
+            XAxis = axes[1] + XAxisOffset;
+            YAxis = axes[0] + YAxisOffset;
+            ZAxis = Math.Round(Math.Abs(latitude), 2) + ZAxisOffset;
+
+            Logger.Trace($"Offsets: X (Dec)={XAxisOffset} Y (RA)={YAxisOffset} Z={ZAxisOffset} Position: X={XAxis} Y={YAxis} Z={ZAxis}");
+
+
         }
 
         private void LoadView() {

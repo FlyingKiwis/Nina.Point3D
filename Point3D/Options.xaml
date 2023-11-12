@@ -18,11 +18,11 @@
             </StackPanel>
             <Label Margin="0,5,0,0" Content="Below are offsets for the model in degrees, ony change them if the model does not match how your telescope is pointing.  Typically they should be changed in multiples of 90 and can be positive or negative."/>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                <Label Content="X Offset (RA)"/>
+                <Label Content="X Offset (Dec)"/>
                 <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding XOffset}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                <Label Content="Y Offset (Dec)"/>
+                <Label Content="Y Offset (RA)"/>
                 <TextBox MinWidth="50" Margin="5,0,0,0" Text="{Binding YOffset}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">

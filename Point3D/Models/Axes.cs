@@ -27,11 +27,6 @@ namespace NINA.Point3D.Classes
 
         }
 
-        /// <summary>
-        /// convert a RaDec position to an axes positions. 
-        /// </summary>
-        /// <param name="raDec"></param>
-        /// <returns></returns>
         public static double[] RaDecToAxesXY(AlignmentMode mode, double rightAscension, double declination, double siderealTime, bool southernHemisphere, PierSide sideOfPier)
         {
             var axes = new[] { rightAscension, declination};
@@ -42,10 +37,8 @@ namespace NINA.Point3D.Classes
                     //axes = Coordinate.RaDec2AltAz(axes[0], axes[1], SkyServer.SiderealTime, SkySettings.Latitude);
                     return axes;
                 case AlignmentMode.GermanPolar:
-                    axes[0] = (siderealTime - rightAscension) * 15.0;
-                    if (southernHemisphere)
-                        declination = -declination;
-                    axes[1] = declination;
+                    axes[0] = (siderealTime - axes[0]) * 15.0;
+                    if (southernHemisphere) { axes[1] = -axes[1]; }
 
                     var axes3 = GetAltAxisPosition(axes);
 

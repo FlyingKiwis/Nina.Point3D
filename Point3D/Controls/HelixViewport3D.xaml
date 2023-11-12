@@ -33,17 +33,17 @@ along with this program.  If not, see<https: //www.gnu.org/licenses/> .
                         <TranslateTransform3D OffsetX="1" OffsetY="0" OffsetZ="0" />
                         <RotateTransform3D CenterX="0" CenterY="-104" CenterZ="525">
                             <RotateTransform3D.Rotation>
-                                <AxisAngleRotation3D Axis="1 0 2000" Angle="{Binding XAxisOffset}" />
+                                <AxisAngleRotation3D Axis="1 0 2000" Angle="{Binding XAxis}" />
                             </RotateTransform3D.Rotation>
                         </RotateTransform3D>
                         <RotateTransform3D CenterX="0" CenterY="-102" CenterZ="525">
                             <RotateTransform3D.Rotation>
-                                <AxisAngleRotation3D Axis="0 1 0" Angle="{Binding YAxisOffset}" />
+                                <AxisAngleRotation3D Axis="0 1 0" Angle="{Binding YAxis}" />
                             </RotateTransform3D.Rotation>
                         </RotateTransform3D>
                         <RotateTransform3D CenterX="0" CenterY="-102" CenterZ="525">
                             <RotateTransform3D.Rotation>
-                                <AxisAngleRotation3D Axis="2000 0 1" Angle="{Binding ZAxisOffset}" />
+                                <AxisAngleRotation3D Axis="2000 0 1" Angle="{Binding ZAxis}" />
                             </RotateTransform3D.Rotation>
                         </RotateTransform3D>
                         <ScaleTransform3D ScaleX="1" ScaleY="1" ScaleZ="1" />

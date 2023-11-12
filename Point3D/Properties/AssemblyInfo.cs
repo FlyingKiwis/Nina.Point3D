@@ -39,7 +39,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("Homepage", "https://github.com/FlyingKiwis/Nina.Point3D")]
 
 //[Optional] Common tags that quickly describe your plugin
-[assembly: AssemblyMetadata("Tags", "")]
+[assembly: AssemblyMetadata("Tags", "Point3D,Telescope,Model,Pointing,Simulation,Simulated")]
 
 //[Optional] A link that will show a log of all changes in between your plugin's versions
 [assembly: AssemblyMetadata("ChangelogURL", "https://github.com/FlyingKiwis/Nina.Point3D/blob/master/CHANGELOG.md")]

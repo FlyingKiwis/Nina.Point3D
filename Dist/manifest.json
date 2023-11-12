@@ -14,7 +14,12 @@
     "LicenseURL": "https://www.gnu.org/licenses/gpl-3.0.en.html",
     "ChangelogURL": "https://github.com/FlyingKiwis/Nina.Point3D/blob/master/CHANGELOG.md",
     "Tags": [
-        ""
+        "Point3D",
+        "Telescope",
+        "Model",
+        "Pointing",
+        "Simulation",
+        "Simulated"
     ],
     "MinimumApplicationVersion": {
         "Major": "2",
