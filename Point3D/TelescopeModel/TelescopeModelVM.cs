@@ -1,9 +1,9 @@
 ﻿using HelixToolkit.Wpf;
+using NINA.Astrometry;
 using NINA.Core.Utility;
 using NINA.Equipment.Equipment.MyTelescope;
 using NINA.Equipment.Interfaces.Mediator;
 using NINA.Equipment.Interfaces.ViewModel;
-using NINA.Point3d.Properties;
 using NINA.Point3d.Util;
 using NINA.Point3D.Classes;
 using NINA.Point3D.Helpers;
@@ -12,11 +12,13 @@ using NINA.Profile.Interfaces;
 using NINA.WPF.Base.ViewModel;
 using System;
 using System.ComponentModel.Composition;
+using System.Security.Cryptography;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Model3D = NINA.Point3D.Classes.Model3D;
-using Settings = NINA.Point3d.Properties.Settings;
+
 
 namespace NINA.Point3d.TelescopeModel {
 
@@ -226,13 +228,27 @@ namespace NINA.Point3d.TelescopeModel {
             YAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0) - 90;
             ZAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.ZOffset, 0);
 
-            XAxis = axes[1] + XAxisOffset;
-            YAxis = axes[0] + YAxisOffset;
-            ZAxis = Math.Round(Math.Abs(latitude), 2) + ZAxisOffset;
+            var xPos = axes[1];
+            var yPos = axes[0];
+            var zPos = Math.Round(Math.Abs(latitude), 2);
 
-            Logger.Trace($"Offsets: X (Dec)={XAxisOffset} Y (RA)={YAxisOffset} Z={ZAxisOffset} Position: X={XAxis} Y={YAxis} Z={ZAxis}");
+            XAxis = xPos + XAxisOffset;
+            YAxis = yPos + YAxisOffset;
+            ZAxis = zPos + ZAxisOffset;
 
+            var msg = $"Latitude={AstroUtil.DegreesToDMS(latitude)}, ";
+            msg += $"Longitude={AstroUtil.DegreesToDMS(deviceInfo.SiteLongitude)}, ";
+            msg += $"Altitude={AstroUtil.DegreesToDMS(deviceInfo.Altitude)}, ";
+            msg += $"Azimuth = {AstroUtil.DegreesToDMS(deviceInfo.Azimuth)}, ";
+            msg += $"Declination = {AstroUtil.DegreesToDMS(dec)}, ";
+            msg += $"RightAscension = {AstroUtil.HoursToHMS(ra)}, ";
+            msg += $"DegX = {Math.Round(XAxis, 2)}°, ";
+            msg += $"DegY = {Math.Round(YAxis, 2)}°, ";
+            msg += $"DegZ = {Math.Round(ZAxis, 2)}°, ";
+            msg += $"SiderealTime = {AstroUtil.HoursToHMS(siderealTime)}, ";
+            msg += $"SideOfPier = {sideOfPier}";
 
+            Logger.Trace(msg);
         }
 
         private void LoadView() {

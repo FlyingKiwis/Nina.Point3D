@@ -15,10 +15,10 @@
  */
 using System;
 using NINA.Core.Enum;
-using NINA.Point3D.Helpers;
+using NINA.Core.Utility;
+using Range = NINA.Point3D.Helpers.Range;
 
-namespace NINA.Point3D.Classes
-{
+namespace NINA.Point3D.Classes {
     public static class Axes
     {
 
@@ -29,6 +29,8 @@ namespace NINA.Point3D.Classes
 
         public static double[] RaDecToAxesXY(AlignmentMode mode, double rightAscension, double declination, double siderealTime, bool southernHemisphere, PierSide sideOfPier)
         {
+            Logger.Trace($"{nameof(mode)}={mode} {nameof(rightAscension)}={rightAscension} {nameof(declination)}={declination} {nameof(siderealTime)}={siderealTime} {nameof(southernHemisphere)}={southernHemisphere} {nameof(sideOfPier)}={sideOfPier}");
+
             var axes = new[] { rightAscension, declination};
             switch (mode)
             {
@@ -40,7 +42,11 @@ namespace NINA.Point3D.Classes
                     axes[0] = (siderealTime - axes[0]) * 15.0;
                     if (southernHemisphere) { axes[1] = -axes[1]; }
 
+                    Logger.Trace($"1: axes[0]={axes[0]} axes[1]={axes[1]}");
+
                     var axes3 = GetAltAxisPosition(axes);
+
+                    Logger.Trace($"2: axes[0]={axes[0]} axes[1]={axes[1]} axes3[0]={axes3[0]} axes3[1]={axes3[1]}");
 
                     switch (sideOfPier)
                     {
@@ -78,6 +84,7 @@ namespace NINA.Point3D.Classes
                             throw new ArgumentOutOfRangeException();
                     }
 
+                    Logger.Trace($"3: axes[0]={axes[0]} axes[1]={axes[1]} axes3[0]={axes3[0]} axes3[1]={axes3[1]}");
                     return axes;
                 case AlignmentMode.Polar:
                     //axes[0] = (SkyServer.SiderealTime - axes[0]) * 15.0;
