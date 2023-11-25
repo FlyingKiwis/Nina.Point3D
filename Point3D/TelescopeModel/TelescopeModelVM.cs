@@ -143,16 +143,33 @@ namespace NINA.Point3d.TelescopeModel {
                 RaisePropertyChanged(nameof(Compass));
             }
 
-            var raDec = Axes.RaDecToAxesXY(alignMode, ra, dec, siderealTime, sourthernHem, sideOfPier);
-            var axes = Model3D.RotateModel(raDec[0], raDec[1], sourthernHem);
+            XAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.XOffset, 0);
+            YAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0);
+            ZAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.ZOffset, 0);
 
-            XAxisOffset = axes[0] + _pluginOptions.GetValueDouble(PluginOptions.XOffset, 0);
-            YAxisOffset = axes[1] + _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0);
-            ZAxisOffset = Math.Round(Math.Abs(latitude), 2) + _pluginOptions.GetValueDouble(PluginOptions.ZOffset, 0);
+            var pos = Helpers.Position.TelescopeInfoToXYZ(deviceInfo);
 
-            RaisePropertyChanged(nameof(XAxisOffset));
-            RaisePropertyChanged(nameof(YAxisOffset));
-            RaisePropertyChanged(nameof(ZAxisOffset));
+            var xPos = pos.X;
+            var yPos = pos.Y;
+            var zPos = pos.Z;
+
+            XAxis = xPos + XAxisOffset;
+            YAxis = yPos + YAxisOffset;
+            ZAxis = zPos + ZAxisOffset;
+
+            var msg = $"Latitude={AstroUtil.DegreesToDMS(latitude)}, ";
+            msg += $"Longitude={AstroUtil.DegreesToDMS(deviceInfo.SiteLongitude)}, ";
+            msg += $"Altitude={AstroUtil.DegreesToDMS(deviceInfo.Altitude)}, ";
+            msg += $"Azimuth = {AstroUtil.DegreesToDMS(deviceInfo.Azimuth)}, ";
+            msg += $"Declination = {AstroUtil.DegreesToDMS(dec)}, ";
+            msg += $"RightAscension = {AstroUtil.HoursToHMS(ra)}, ";
+            msg += $"DegX = {Math.Round(XAxis, 2)}°, ";
+            msg += $"DegY = {Math.Round(YAxis, 2)}°, ";
+            msg += $"DegZ = {Math.Round(ZAxis, 2)}°, ";
+            msg += $"SiderealTime = {AstroUtil.HoursToHMS(siderealTime)}, ";
+            msg += $"SideOfPier = {sideOfPier}";
+
+            Logger.Trace(msg);
         }
 
         private void LoadView() {
