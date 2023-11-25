@@ -62,20 +62,5 @@ namespace NINA.Point3D.Classes
             var file = new Uri(filePath).LocalPath;
             return file;
         }
-        public static double[] RotateModel(double ax, double ay, bool southernHemisphere)
-        {
-            var axes = new[] { 0.0, 0.0 };
-            if (southernHemisphere)
-            {
-                axes[0] = Math.Round(180 - ax, 3);
-                axes[1] = Math.Round(ay - 180, 3);
-            }
-            else
-            {
-                axes[0] = Math.Round(ax, 3);
-                axes[1] = Math.Round(ay * -1.0, 3);
-            }
-            return axes;
-        }
     }
 }

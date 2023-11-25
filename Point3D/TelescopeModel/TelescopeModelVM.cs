@@ -221,16 +221,15 @@ namespace NINA.Point3d.TelescopeModel {
                 RaisePropertyChanged(nameof(Compass));
             }
 
-            var raDec = Axes.RaDecToAxesXY(alignMode, ra, dec, siderealTime, sourthernHem, sideOfPier);
-            var axes = Model3D.RotateModel(raDec[0], raDec[1], sourthernHem);
-
-            XAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.XOffset, 0) + 90;
-            YAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0) - 90;
+            XAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.XOffset, 0);
+            YAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0);
             ZAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.ZOffset, 0);
 
-            var xPos = axes[1];
-            var yPos = axes[0];
-            var zPos = Math.Round(Math.Abs(latitude), 2);
+            var pos = Helpers.Position.TelescopeInfoToXYZ(deviceInfo);
+
+            var xPos = pos.X;
+            var yPos = pos.Y;
+            var zPos = pos.Z;
 
             XAxis = xPos + XAxisOffset;
             YAxis = yPos + YAxisOffset;
