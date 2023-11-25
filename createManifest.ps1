@@ -2,7 +2,7 @@
 # Set paths
 #
 
-$file = "$env:USERPROFILE\AppData\Local\NINA\Plugins\Point3D\Point3D.dll";
+$file = "$env:USERPROFILE\AppData\Local\NINA\Plugins\3.0.0\Point3D\Point3D.dll";
 $createArchive = 1;
 $includeAll = 1;
 $appendVersionToArchive = 1;
