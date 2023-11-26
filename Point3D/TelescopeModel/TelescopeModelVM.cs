@@ -1,11 +1,10 @@
 ﻿using HelixToolkit.Wpf;
+using NINA.Astrometry;
 using NINA.Core.Utility;
 using NINA.Equipment.Equipment.MyTelescope;
 using NINA.Equipment.Interfaces.Mediator;
 using NINA.Equipment.Interfaces.ViewModel;
-using NINA.Point3d.Properties;
 using NINA.Point3d.Util;
-using NINA.Point3D.Classes;
 using NINA.Point3D.Helpers;
 using NINA.Profile;
 using NINA.Profile.Interfaces;
@@ -16,7 +15,6 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Model3D = NINA.Point3D.Classes.Model3D;
-using Settings = NINA.Point3d.Properties.Settings;
 
 namespace NINA.Point3d.TelescopeModel {
 
@@ -69,9 +67,84 @@ namespace NINA.Point3d.TelescopeModel {
         }
 
 
-        public double XAxisOffset { get; private set; } = 0;
-        public double YAxisOffset { get; private set; } = 0;
-        public double ZAxisOffset { get; private set; } = 0;
+        private double _xAxisOffset = 0;
+        public double XAxisOffset {
+            get {
+                return _xAxisOffset;
+            }
+            set {
+                if (_xAxisOffset != value) {
+                    _xAxisOffset = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _yAxisOffset = 0;
+        public double YAxisOffset {
+            get {
+                return _yAxisOffset;
+            }
+            set {
+                if (_yAxisOffset != value) {
+                    _yAxisOffset = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _zAxisOffset = 0;
+        public double ZAxisOffset {
+            get {
+                return _zAxisOffset;
+            }
+            set {
+                if (_zAxisOffset != value) {
+                    _zAxisOffset = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _xAxis = 0;
+        public double XAxis {
+            get {
+                return _xAxis;
+            }
+            set {
+                if (_xAxis != value) {
+                    _xAxis = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _yAxis = 0;
+        public double YAxis {
+            get {
+                return _yAxis;
+            }
+            set {
+                if (_yAxis != value) {
+                    _yAxis = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private double _zAxis = 0;
+        public double ZAxis {
+            get {
+                return _zAxis;
+            }
+            set {
+                if (_zAxis != value) {
+                    _zAxis = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public bool ModelOn { get; private set; } = false;
         public Material Compass { get; private set; }
         public bool CameraVis { get; private set; } = false;
@@ -130,7 +203,6 @@ namespace NINA.Point3d.TelescopeModel {
             
             var ra = deviceInfo.RightAscension;
             var dec = deviceInfo.Declination;
-            var alignMode = deviceInfo.AlignmentMode;
             var sourthernHem = deviceInfo.SiteLatitude < 0;
             var latitude = deviceInfo.SiteLatitude;
             var siderealTime = deviceInfo.SiderealTime;
