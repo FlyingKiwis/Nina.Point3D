@@ -225,7 +225,7 @@ namespace NINA.Point3d.TelescopeModel {
             YAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.YOffset, 0);
             ZAxisOffset = _pluginOptions.GetValueDouble(PluginOptions.ZOffset, 0);
 
-            var pos = Helpers.Position.TelescopeInfoToXYZ(deviceInfo);
+            var pos = Helpers.Position.TelescopeInfoToXYZ(deviceInfo, _profileService.ActiveProfile.MeridianFlipSettings.UseSideOfPier);
 
             var xPos = pos.X;
             var yPos = pos.Y;
@@ -283,7 +283,7 @@ namespace NINA.Point3d.TelescopeModel {
 
         private void LoadModel(bool force = false) {
 
-            Application.Current.Dispatcher.Invoke(() => {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => {
                 try {
                     var otaStyle = _pluginOptions.GetValueEnum(PluginOptions.OTAStyle, Model3DType.Default);
                     var modelColor = _pluginOptions.GetValueColor(PluginOptions.ModelColor, System.Drawing.Color.Red.ToMediaColor());
@@ -323,7 +323,7 @@ namespace NINA.Point3d.TelescopeModel {
                 catch (Exception ex) {
                     Logger.Error(ex);
                 }
-            });
+            }));
         }
     }
 }
