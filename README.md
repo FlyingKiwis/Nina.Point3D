@@ -1,6 +1,8 @@
 ﻿# Point3D
 
-## !!! Very early preview/beta version.  Using during imaging that you care about is not reccomended. !!!
+## Issues / Requests
+
+Please submit issues or requests here: [New Github Issue](https://github.com/FlyingKiwis/Nina.Point3D/issues/new/choose)
 
 ## About
 
@@ -16,6 +18,5 @@ This plugin adds a dockable window in the imaging view that shows a simulated mo
 - Models and images redistributed with permission from Rob Morgan
 
 ## Contact
-Please submit issues here: [New Github Issue](https://github.com/FlyingKiwis/Nina.Point3D/issues/new/choose)
 
 I'm in the [NINA discord](https://discord.gg/rWRbVbw) server as Kiwi🥝
