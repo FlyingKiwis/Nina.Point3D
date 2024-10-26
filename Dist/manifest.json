@@ -5,7 +5,7 @@
         "Major": "0",
         "Minor": "2",
         "Patch": "1",
-        "Build": "0"
+        "Build": "1"
     },
     "Author": "Drew McDermott",
     "Homepage": "https://github.com/FlyingKiwis/Nina.Point3D",
@@ -35,9 +35,9 @@
         "AltScreenshotURL": ""
     },
     "Installer": {
-        "URL": "https://github.com/FlyingKiwis/Nina.Point3D/releases/download/v0.2.1/Point3D.0.2.1.0.zip",
+        "URL": "https://github.com/FlyingKiwis/Nina.Point3D/releases/download/v0.2.1/Point3D.0.2.1.1.zip",
         "Type": "ARCHIVE",
-        "Checksum": "601C219DB54D175B4139612D53EDA28D11923FDE4CFD01C8E0978DD97A76CD76",
+        "Checksum": "8EBBA526CED7F322C1FDA48BFC7F01DF88679B7B210471D3C36F1C7EA184E20F",
         "ChecksumType": "SHA256"
     }
 }
