@@ -1,6 +1,6 @@
 ﻿# Point3D
 
-!!! Very early preview/beta version.  Using during imaging that you care about is not reccomended. !!!
+## !!! Very early preview/beta version.  Using during imaging that you care about is not reccomended. !!!
 
 ## About
 
