@@ -5,9 +5,11 @@ using System;
 using System.Windows.Media.Media3D;
 
 namespace NINA.Point3d.Helpers {
+
     public static class Position {
+
         public static Vector3D TelescopeInfoToXYZ(TelescopeInfo telescopeInfo, bool useSideOfPier) {
-            Logger.Info($"Use side of pier={useSideOfPier}");
+            Logger.Debug($"Use side of pier={useSideOfPier}");
 
             var xOffset = -90;
             var yOffset = -90;
@@ -29,12 +31,10 @@ namespace NINA.Point3d.Helpers {
         }
 
         private static bool UseWestCoordinates(TelescopeInfo telescopeInfo, bool useSideOfPier) {
-
             if (useSideOfPier) {
                 if (telescopeInfo.SideOfPier != PierSide.pierUnknown) {
                     return telescopeInfo.SideOfPier == PierSide.pierWest;
                 }
-
             }
 
             var hourAngleDeg = GetHourAngleDegree(telescopeInfo);
@@ -49,7 +49,7 @@ namespace NINA.Point3d.Helpers {
         private static double GetHourAngleDegree(TelescopeInfo telescopeInfo) {
             var hourAngleDeg = (telescopeInfo.SiderealTime - telescopeInfo.RightAscension) * 15.0;
 
-            while(hourAngleDeg < 0) {
+            while (hourAngleDeg < 0) {
                 hourAngleDeg += 360.0;
             }
 
