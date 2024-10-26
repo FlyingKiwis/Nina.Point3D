@@ -244,7 +244,7 @@ namespace NINA.Point3d.TelescopeModel {
             msg += $"UseSideOfPier = {_profileService.ActiveProfile.MeridianFlipSettings.UseSideOfPier}, ";
             msg += $"Southern Hem = {sourthernHem}";
 
-            if (DateTime.Now - _lastInfoLog >= TimeSpan.FromSeconds(10)) {
+            if (DateTime.Now - _lastInfoLog >= TimeSpan.FromMinutes(5)) {
                 _lastInfoLog = DateTime.Now;
                 Logger.Info(msg);
             } else {
