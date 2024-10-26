@@ -5,16 +5,13 @@ using NINA.Equipment.Equipment.MyTelescope;
 using NINA.Equipment.Interfaces.Mediator;
 using NINA.Equipment.Interfaces.ViewModel;
 using NINA.Point3d.Util;
-using NINA.Point3D.Classes;
 using NINA.Point3D.Helpers;
 using NINA.Profile;
 using NINA.Profile.Interfaces;
 using NINA.WPF.Base.ViewModel;
 using System;
 using System.ComponentModel.Composition;
-using System.Security.Cryptography;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Model3D = NINA.Point3D.Classes.Model3D;
@@ -33,6 +30,7 @@ namespace NINA.Point3d.TelescopeModel {
         private Color _modelColor;
         private Model3DType _otaType;
         private IProfile _activeProfile;
+        private static DateTime _lastInfoLog = DateTime.Now;
 
         [ImportingConstructor]
         public TelescopeModelVM(ITelescopeMediator telescopeMediator, IProfileService profileService) : base(profileService) {
@@ -54,13 +52,11 @@ namespace NINA.Point3d.TelescopeModel {
         }
 
         private void ActiveProfile_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
-            Logger.Debug(string.Empty);
             LoadModel();
         }
 
         private void ProfileService_ProfileChanged(object sender, EventArgs e) 
         {
-            Logger.Debug(string.Empty);
             _activeProfile.PluginSettings.PropertyChanged -= ActiveProfile_PropertyChanged;
             _activeProfile = _profileService.ActiveProfile;
             if (_activeProfile != null) {
@@ -195,15 +191,13 @@ namespace NINA.Point3d.TelescopeModel {
         }
 
         public void UpdateDeviceInfo(TelescopeInfo deviceInfo) {
-            Logger.Debug(string.Empty);
-
             if (!ModelOn) {
                 ModelOn = true;
                 RaisePropertyChanged(nameof(ModelOn));
             }
 
             LoadModel();
-            
+
             var ra = deviceInfo.RightAscension;
             var dec = deviceInfo.Declination;
             var alignMode = deviceInfo.AlignmentMode;
@@ -214,7 +208,7 @@ namespace NINA.Point3d.TelescopeModel {
 
             Logger.Trace($"RA={ra} DEC={dec} Lat={latitude}");
 
-            if(!_isSouthernHem.HasValue || _isSouthernHem.Value != sourthernHem) {
+            if (!_isSouthernHem.HasValue || _isSouthernHem.Value != sourthernHem) {
                 _isSouthernHem = sourthernHem;
                 Compass = MaterialHelper.CreateImageMaterial(Model3D.GetCompassFile(sourthernHem), 100);
 
@@ -235,7 +229,8 @@ namespace NINA.Point3d.TelescopeModel {
             YAxis = yPos + YAxisOffset;
             ZAxis = zPos + ZAxisOffset;
 
-            var msg = $"Latitude={AstroUtil.DegreesToDMS(latitude)}, ";
+            var msg = "Device position: ";
+            msg += $"Latitude={AstroUtil.DegreesToDMS(latitude)}, ";
             msg += $"Longitude={AstroUtil.DegreesToDMS(deviceInfo.SiteLongitude)}, ";
             msg += $"Altitude={AstroUtil.DegreesToDMS(deviceInfo.Altitude)}, ";
             msg += $"Azimuth = {AstroUtil.DegreesToDMS(deviceInfo.Azimuth)}, ";
@@ -245,9 +240,16 @@ namespace NINA.Point3d.TelescopeModel {
             msg += $"DegY = {Math.Round(YAxis, 2)}°, ";
             msg += $"DegZ = {Math.Round(ZAxis, 2)}°, ";
             msg += $"SiderealTime = {AstroUtil.HoursToHMS(siderealTime)}, ";
-            msg += $"SideOfPier = {sideOfPier}";
+            msg += $"SideOfPier = {sideOfPier}, ";
+            msg += $"UseSideOfPier = {_profileService.ActiveProfile.MeridianFlipSettings.UseSideOfPier}, ";
+            msg += $"Southern Hem = {sourthernHem}";
 
-            Logger.Trace(msg);
+            if (DateTime.Now - _lastInfoLog >= TimeSpan.FromSeconds(10)) {
+                _lastInfoLog = DateTime.Now;
+                Logger.Info(msg);
+            } else {
+                Logger.Trace(msg);
+            }
         }
 
         private void LoadView() {
