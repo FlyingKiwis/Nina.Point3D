@@ -29,7 +29,7 @@
     },
     "Descriptions": {
         "ShortDescription": "Displays a model of how the telescope is pointing",
-        "LongDescription": "!!! Early beta version.  Using during imaging that you care about is not reccomended. !!!\r\n\r\n# About\r\n\r\nBased on [Green Swamp's Pont3D](https://greenswamp.org/)\r\n\r\nThis plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.  Please see [the readme](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/README.md) for more info.\r\n\r\n# Legal\r\n\r\n- This plugin is distributed under the GPL v3 license.\r\n    - [License](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/LICENSE)\r\n- It is primarily a port of Green Swamp Server's Point3D © 2021 Rob Morgan released under GPL v3\r\n    - [Website](https://greenswamp.org/)\r\n    - [License](https://github.com/rmorgan001/GS.Point3d/blob/master/LICENSE)\r\n- Models and images redistributed with permission from Rob Morgan\r\n\r\n# Contact\r\n\r\nI'm in the [NINA discord](https://discord.gg/rWRbVbw) server as Kiwi🥝\r\n\r\n",
+        "LongDescription": "# Point3D\r\n\r\n## Issues / Requests\r\n\r\nPlease submit issues or requests here: [New Github Issue](https://github.com/FlyingKiwis/Nina.Point3D/issues/new/choose)\r\n\r\n## About\r\n\r\nThis plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.\r\n\r\n## Legal\r\n\r\n- This plugin is distributed under the GPL v3 license.\r\n    - [License](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/LICENSE)\r\n- It is primarily a port of Green Swamp Server's Point3D © 2021 Rob Morgan released under GPL v3\r\n    - [Website](https://greenswamp.org/)\r\n    - [License](https://github.com/rmorgan001/GS.Point3d/blob/master/LICENSE)\r\n- Models and images redistributed with permission from Rob Morgan\r\n\r\n## Contact\r\n\r\nI'm in the [NINA discord](https://discord.gg/rWRbVbw) server as Kiwi🥝",
         "FeaturedImageURL": "",
         "ScreenshotURL": "",
         "AltScreenshotURL": ""
@@ -37,7 +37,7 @@
     "Installer": {
         "URL": "https://github.com/FlyingKiwis/Nina.Point3D/releases/download/v0.2.3/Point3D.0.2.3.0.zip",
         "Type": "ARCHIVE",
-        "Checksum": "F298026A277E09491CF53396C3480C81A7948CC223F83F8EF962E1B02878611B",
+        "Checksum": "44D4364CBBE9479FF55271369770A23BB9843628C41E89C83ECCD6428420C5D7",
         "ChecksumType": "SHA256"
     }
 }

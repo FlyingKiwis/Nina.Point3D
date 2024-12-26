@@ -51,15 +51,17 @@ using System.Runtime.InteropServices;
 //[Optional] An additional url to an example example screenshot of your plugin in action
 [assembly: AssemblyMetadata("AltScreenshotURL", "")]
 //[Optional] An in-depth description of your plugin
-[assembly: AssemblyMetadata("LongDescription", @"!!! Early beta version.  Using during imaging that you care about is not reccomended. !!!
+[assembly: AssemblyMetadata("LongDescription", @"# Point3D
 
-# About
+## Issues / Requests
 
-Based on [Green Swamp's Pont3D](https://greenswamp.org/)
+Please submit issues or requests here: [New Github Issue](https://github.com/FlyingKiwis/Nina.Point3D/issues/new/choose)
 
-This plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.  Please see [the readme](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/README.md) for more info.
+## About
 
-# Legal
+This plugin adds a dockable window in the imaging view that shows a simulated model of your telescope.
+
+## Legal
 
 - This plugin is distributed under the GPL v3 license.
     - [License](https://github.com/FlyingKiwis/Nina.Point3D/blob/master/LICENSE)
@@ -68,11 +70,9 @@ This plugin adds a dockable window in the imaging view that shows a simulated mo
     - [License](https://github.com/rmorgan001/GS.Point3d/blob/master/LICENSE)
 - Models and images redistributed with permission from Rob Morgan
 
-# Contact
+## Contact
 
-I'm in the [NINA discord](https://discord.gg/rWRbVbw) server as Kiwi🥝
-
-")]
+I'm in the [NINA discord](https://discord.gg/rWRbVbw) server as Kiwi🥝")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
