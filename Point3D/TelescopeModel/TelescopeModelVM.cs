@@ -30,7 +30,7 @@ namespace NINA.Point3d.TelescopeModel {
         private Color _modelColor;
         private Model3DType _otaType;
         private IProfile _activeProfile;
-        private static DateTime _lastInfoLog = DateTime.Now;
+        private static DateTime _lastDebugLog = DateTime.Now;
 
         [ImportingConstructor]
         public TelescopeModelVM(ITelescopeMediator telescopeMediator, IProfileService profileService) : base(profileService) {
@@ -244,9 +244,9 @@ namespace NINA.Point3d.TelescopeModel {
             msg += $"UseSideOfPier = {_profileService.ActiveProfile.MeridianFlipSettings.UseSideOfPier}, ";
             msg += $"Southern Hem = {sourthernHem}";
 
-            if (DateTime.Now - _lastInfoLog >= TimeSpan.FromMinutes(5)) {
-                _lastInfoLog = DateTime.Now;
-                Logger.Info(msg);
+            if (DateTime.Now - _lastDebugLog >= TimeSpan.FromMinutes(5)) {
+                _lastDebugLog = DateTime.Now;
+                Logger.Debug(msg);
             } else {
                 Logger.Trace(msg);
             }
